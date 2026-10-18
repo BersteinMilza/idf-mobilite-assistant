@@ -29,7 +29,6 @@ class StepSelectStopArea:
 
         selected = None
         default_name = ""
-
         # -------------------------
         # Soumission du formulaire
         # -------------------------
@@ -84,9 +83,6 @@ class StepSelectStopArea:
                 await self.hass.config_entries.async_reload(self.entry.entry_id)
 
                 return await self.async_step_main_menu()
-
-            if selected:
-                default_name = f"{results[selected]['name']}"
 
         # -------------------------
         # Construction du menu déroulant
