@@ -2,6 +2,9 @@ json_sample/
 .DS_Store
 .easycarebearer
 
+# Notes locales pour les agents (non publiées)
+AGENTS.md
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
