@@ -4,10 +4,13 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 
 from .const import DOMAIN
+from .coordinator import PRIMCoordinator
 
 import homeassistant.helpers.config_validation as cv
 
 CONFIG_SCHEMA = cv.config_entry_only_config_schema("idf_mobilite_assistant")
+
+PLATFORMS = ["sensor"]
 
 
 async def async_setup(hass: HomeAssistant, config: dict) -> bool:
@@ -24,17 +27,27 @@ async def async_setup(hass: HomeAssistant, config: dict) -> bool:
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     """Configurer l’intégration lors de l’ajout d’une entrée de configuration.
 
-    Cette fonction initialise les données du domaine et délègue la création
-    des entités à la plateforme `sensor`.
+    Crée le coordinateur, effectue un premier rafraîchissement (qui échoue
+    proprement via `ConfigEntryNotReady` ou démarre la réauthentification
+    via `ConfigEntryAuthFailed`), puis délègue la création des entités à la
+    plateforme `sensor`.
     """
     hass.data.setdefault(DOMAIN, {})
-    await hass.config_entries.async_forward_entry_setups(entry, ["sensor"])
+
+    coordinator = PRIMCoordinator(hass, entry)
+    await coordinator.async_config_entry_first_refresh()
+
+    hass.data[DOMAIN][entry.entry_id] = coordinator
+
+    await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     return True
 
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Décharger l’intégration lors de la suppression d’une entrée de configuration.
+    """Décharger l’intégration lors de la suppression de l’entrée de configuration."""
+    unloaded = await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
 
-    Cette fonction décharge toutes les plateformes associées à l’entrée.
-    """
-    return await hass.config_entries.async_unload_platforms(entry, ["sensor"])
+    if unloaded:
+        hass.data[DOMAIN].pop(entry.entry_id, None)
+
+    return unloaded
