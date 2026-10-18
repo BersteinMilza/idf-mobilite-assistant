@@ -2,77 +2,169 @@
   "config": {
     "step": {
       "user": {
-        "title": "Integration setup",
-        "description": "Please enter your PRIM API key to access IDFM data.",
+        "title": "Configuration de l'intégration",
+        "description": "Veuillez saisir votre clé API PRIM pour accéder aux données IDFM.",
         "data": {
-          "api_key": "PRIM API key"
+          "api_key": "Clé API PRIM"
         }
       },
       "search_stop_area": {
-        "title": "Search for a stop",
-        "description": "Enter at least 3 letters to search for a stop (e.g., 'Nation', 'Gare de Lyon').",
+        "title": "Rechercher un arrêt",
+        "description": "Saisissez au moins 3 lettres pour rechercher un arrêt (ex : 'Nation', 'Gare de Lyon').",
         "data": {
-          "search": "Search for a stop"
+          "search": "Rechercher un arrêt"
         }
       },
       "select_stop_area": {
-        "title": "Select a stop",
-        "description": "Choose a stop from the list. You may also customize the line name (optional).",
+        "title": "Sélection de l'arrêt",
+        "description": "Choisissez un arrêt dans la liste. Vous pouvez également personnaliser le nom de la ligne (optionnel).",
         "data": {
-          "selected_stop_area": "Stop",
-          "name": "Line name (optional)"
+          "selected_stop_area": "Arrêt",
+          "name": "Nom de la ligne (optionnel)"
         }
       },
       "main_menu": {
-        "title": "Main menu",
-        "description": "What would you like to do?",
+        "title": "Menu principal",
+        "description": "Que souhaitez-vous faire ?",
         "data": {
-          "action": ""
+          "menu": "Action"
         }
       },
-      "add_message": {
-        "title": "Add a custom message",
-        "description": "Add a message that will be displayed in the associated entities.",
+      "search_line": {
+        "title": "Rechercher une ligne",
+        "description": "Choisissez un mode de transport puis saisissez un code de ligne (ex : {placeholder}). Le code est obligatoire avec le mode « Localisation ».",
         "data": {
-          "message": "Message"
+          "mode": "Mode de transport",
+          "code": "Code de ligne"
+        }
+      },
+      "select_line": {
+        "title": "Sélection de la ligne",
+        "description": "Choisissez la ligne pour laquelle créer un capteur de messages (perturbations).",
+        "data": {
+          "selected_line": "Ligne"
         }
       },
       "delete": {
-        "title": "Delete a line",
-        "description": "Select the line you want to delete.",
+        "title": "Supprimer un capteur",
+        "description": "Sélectionnez le capteur à supprimer définitivement.",
         "data": {
-          "ligne": "Line to delete"
+          "entry": "Capteur à supprimer"
         }
       },
-      "update_api": {
-        "title": "Update API key",
-        "description": "Update your PRIM API key.",
+      "update_api_key": {
+        "title": "Mettre à jour la clé API",
+        "description": "Modifiez votre clé API PRIM.",
         "data": {
-          "api_key": "New PRIM API key"
+          "api_key": "Nouvelle clé API PRIM"
+        }
+      },
+      "refresh_settings": {
+        "title": "Intervalle de rafraîchissement",
+        "description": "Intervalle entre deux appels PRIM, en secondes (min {min_interval}, max {max_interval}). Une requête est effectuée par arrêt et par cycle : 180 s ≈ 480 appels/jour. La pause nocturne évite les appels entre 01:30 et 05:30, lorsque le trafic est interrompu.",
+        "data": {
+          "scan_interval": "Intervalle (secondes)",
+          "night_pause": "Pause nocturne (01:30 → 05:30)"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Clé API PRIM refusée",
+        "description": "La clé API PRIM enregistrée n'est plus acceptée. Saisissez une nouvelle clé pour rétablir la connexion.",
+        "data": {
+          "api_key": "Clé API PRIM"
         }
       }
     },
     "error": {
-      "invalid_api_key": "The provided API key is invalid.",
-      "no_results": "No stop found for this search.",
-      "unknown": "An unexpected error occurred.",
-      "query_too_short": "Please enter at least 3 characters."
+      "invalid_api_key": "La clé API fournie est invalide.",
+      "no_results": "Aucun résultat pour cette recherche.",
+      "unknown": "Une erreur inattendue est survenue.",
+      "query_too_short": "Veuillez saisir au moins 3 caractères.",
+      "api_key_empty": "La clé API ne peut pas être vide.",
+      "empty_code": "Le code de ligne est obligatoire avec le mode « Localisation ».",
+      "invalid_selection": "La sélection n'est pas valide, merci de réessayer."
     },
     "abort": {
-      "already_configured": "This integration is already configured.",
-      "cannot_connect": "Unable to connect to the PRIM service.",
-      "invalid_api_key": "The provided API key is invalid."
+      "already_configured": "Cette intégration est déjà configurée.",
+      "cannot_connect": "Impossible de se connecter au service PRIM.",
+      "invalid_api_key": "La clé API fournie est invalide.",
+      "no_entries": "Aucun capteur à supprimer.",
+      "reauth_successful": "La clé API a été mise à jour."
     }
   },
   "options": {
     "step": {
-      "init": {
-        "title": "Integration options",
-        "description": "Configure advanced settings.",
+      "main_menu": {
+        "title": "Menu principal",
+        "description": "Que souhaitez-vous faire ?",
         "data": {
-          "refresh_interval": "Refresh interval (minutes)"
+          "menu": "Action"
+        }
+      },
+      "search_stop_area": {
+        "title": "Rechercher un arrêt",
+        "description": "Saisissez au moins 3 lettres pour rechercher un arrêt (ex : 'Nation', 'Gare de Lyon').",
+        "data": {
+          "search": "Rechercher un arrêt"
+        }
+      },
+      "select_stop_area": {
+        "title": "Sélection de l'arrêt",
+        "description": "Choisissez un arrêt dans la liste. Vous pouvez également personnaliser le nom de la ligne (optionnel).",
+        "data": {
+          "selected_stop_area": "Arrêt",
+          "name": "Nom de la ligne (optionnel)"
+        }
+      },
+      "search_line": {
+        "title": "Rechercher une ligne",
+        "description": "Choisissez un mode de transport puis saisissez un code de ligne (ex : {placeholder}). Le code est obligatoire avec le mode « Localisation ».",
+        "data": {
+          "mode": "Mode de transport",
+          "code": "Code de ligne"
+        }
+      },
+      "select_line": {
+        "title": "Sélection de la ligne",
+        "description": "Choisissez la ligne pour laquelle créer un capteur de messages (perturbations).",
+        "data": {
+          "selected_line": "Ligne"
+        }
+      },
+      "delete": {
+        "title": "Supprimer un capteur",
+        "description": "Sélectionnez le capteur à supprimer définitivement.",
+        "data": {
+          "entry": "Capteur à supprimer"
+        }
+      },
+      "update_api_key": {
+        "title": "Mettre à jour la clé API",
+        "description": "Modifiez votre clé API PRIM.",
+        "data": {
+          "api_key": "Nouvelle clé API PRIM"
+        }
+      },
+      "refresh_settings": {
+        "title": "Intervalle de rafraîchissement",
+        "description": "Intervalle entre deux appels PRIM, en secondes (min {min_interval}, max {max_interval}). Une requête est effectuée par arrêt et par cycle : 180 s ≈ 480 appels/jour. La pause nocturne évite les appels entre 01:30 et 05:30, lorsque le trafic est interrompu.",
+        "data": {
+          "scan_interval": "Intervalle (secondes)",
+          "night_pause": "Pause nocturne (01:30 → 05:30)"
         }
       }
+    },
+    "error": {
+      "invalid_api_key": "La clé API fournie est invalide.",
+      "no_results": "Aucun résultat pour cette recherche.",
+      "unknown": "Une erreur inattendue est survenue.",
+      "query_too_short": "Veuillez saisir au moins 3 caractères.",
+      "api_key_empty": "La clé API ne peut pas être vide.",
+      "empty_code": "Le code de ligne est obligatoire avec le mode « Localisation ».",
+      "invalid_selection": "La sélection n'est pas valide, merci de réessayer."
+    },
+    "abort": {
+      "no_entries": "Aucun capteur à supprimer."
     }
   }
 }
