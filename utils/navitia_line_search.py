@@ -51,7 +51,6 @@ async def search_navitia_lines(api_key: str, mode: str, code: str):
                     f"{NAVITIA_BASE_URL}/places",
                     headers={"apiKey": api_key},
                     params=params,
-                    ssl=False,
                 ) as resp,
             ):
                 if resp.status != 200:
@@ -115,7 +114,6 @@ async def search_navitia_lines(api_key: str, mode: str, code: str):
                 f"{NAVITIA_BASE_URL}/pt_objects",
                 headers={"apiKey": api_key},
                 params=params,
-                ssl=False,
             ) as resp,
         ):
             if resp.status != 200:
