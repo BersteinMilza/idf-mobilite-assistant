@@ -13,6 +13,7 @@ from ..const import (  # noqa: TID252
     MENU_ADD_LIGNE,
     MENU_ADD_MESSAGE,
     MENU_DELETE,
+    MENU_REFRESH,
     MENU_UPDATE_API,
 )
 
@@ -46,6 +47,9 @@ class StepMainMenu:
             if choice == MENU_UPDATE_API:
                 return await self.async_step_update_api_key()
 
+            if choice == MENU_REFRESH:
+                return await self.async_step_refresh_settings()
+
         schema = vol.Schema(
             {
                 vol.Required("menu"): vol.In(
@@ -53,6 +57,7 @@ class StepMainMenu:
                         MENU_ADD_LIGNE: "➕ Ajouter une ligne",
                         MENU_ADD_MESSAGE: "📝 Ajouter un message",
                         MENU_DELETE: "🗑️ Supprimer un élément",
+                        MENU_REFRESH: "⚙️ Intervalle de rafraîchissement",
                         MENU_UPDATE_API: "🔑 Mettre à jour la clé API",
                     }
                 )
