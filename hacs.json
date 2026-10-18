@@ -1,5 +1,5 @@
 {
-  "name": "IDF Mobilité Assistant",
+  "name": "IDF Mobilité Assistant Alt",
   "content_in_root": true,
   "country": ["FR"],
   "homeassistant": "2024.12.0",
