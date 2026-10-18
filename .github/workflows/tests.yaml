@@ -32,6 +32,7 @@ jobs:
           cp -r utils custom_components/idf_mobilite_assistant/
           cp const.py custom_components/idf_mobilite_assistant/
           cp config_flow.py custom_components/idf_mobilite_assistant/
+          cp coordinator.py custom_components/idf_mobilite_assistant/
           cp sensor.py custom_components/idf_mobilite_assistant/
           touch custom_components/idf_mobilite_assistant/__init__.py
           mv custom_components/idf_mobilite_assistant/__init__.py custom_components/idf_mobilite_assistant/__init__.py.disabled
