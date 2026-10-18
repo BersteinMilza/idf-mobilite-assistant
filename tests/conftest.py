@@ -30,8 +30,9 @@ def fake_hass():
     class FakeHass:
         class config_entries:
             @staticmethod
-            def async_update_entry(entry, data):
-                entry.data = data
+            def async_update_entry(entry, **kwargs):
+                for key, value in kwargs.items():
+                    setattr(entry, key, value)
 
             @staticmethod
             async def async_reload(entry_id):
