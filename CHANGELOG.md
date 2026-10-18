@@ -25,6 +25,7 @@ et ce projet adhère au principe de versionnage sémantique (SemVer).
 ---
 
 ## [Unreleased]
+
 ### Corrigé
 - **Quota PRIM** : les capteurs interrogeaient l'API toutes les 60 secondes et par
   capteur (1 440 appels/jour), au-delà du quota de 1 000 requêtes/jour des comptes
@@ -63,7 +64,7 @@ et ce projet adhère au principe de versionnage sémantique (SemVer).
 - Tests de non-régression pour le réglage du rafraîchissement.
 
 ### Prévu
-- Améliorations mineures et correctifs selon retours utilisateurs.
 - Migration vers une arborescence `custom_components/` standard.
 - Adoption de `pytest-homeassistant-custom-component` (suppression du faux
   `custom_components/` reconstitué en CI).
+- Améliorations mineures et correctifs selon retours utilisateurs.

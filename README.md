@@ -61,6 +61,7 @@ L’intégration utilise l’API **PRIM / Navitia v2** d’Île‑de‑France Mo
 - Recherche d’arrêt par nom
 - Recherche de ligne par code ou nom
 - Ajout / suppression de capteurs
+- Bouton **Configurer** pour gérer les capteurs, la clé API et le rafraîchissement
 - Aucun YAML requis
 
 ### 🧹 Suppression propre des capteurs
@@ -104,6 +105,37 @@ L’intégration utilise l’API **PRIM / Navitia v2** d’Île‑de‑France Mo
 ### 4. Supprimer un capteur
 - Menu de l’intégration → **Supprimer un capteur**
 - Suppression propre dans HA
+
+### 5. Gérer l’intégration : bouton « Configurer »
+
+Toute la gestion se fait désormais depuis **Paramètres → Appareils & services →
+IDF Mobilité Assistant → ⚙️ Configurer** :
+
+| Action | Effet |
+|---|---|
+| ➕ Ajouter une ligne | Recherche d’arrêt → nouveau capteur d’horaires |
+| 📝 Ajouter un message | Recherche de ligne → nouveau capteur de perturbations |
+| 🗑️ Supprimer un élément | Suppression définitive dans le registre d’entités |
+| ⚙️ Intervalle de rafraîchissement | Intervalle + pause nocturne |
+| 🔑 Mettre à jour la clé API | Rotation proactive de la clé |
+
+> Le même menu reste accessible en réajoutant l’intégration, mais le bouton
+> **Configurer** est le chemin recommandé.
+
+### 6. Fréquence de mise à jour et quota PRIM
+
+Les capteurs sont rafraîchis **toutes les 3 minutes par défaut**, via un
+coordinateur unique par entrée. Les appels sont mutualisés : deux capteurs
+pointant sur le même arrêt ne consomment qu’une seule requête par cycle.
+
+L’intervalle est réglable de 60 à 3 600 secondes dans **⚙️ Configurer →
+Intervalle de rafraîchissement**. La **pause nocturne** (optionnelle) coupe les
+appels entre 01:30 et 05:30, lorsque le trafic est interrompu : les capteurs
+conservent alors leur dernier état connu.
+
+> ⚠️ **Quota PRIM** : les comptes récents disposent de 1 000 requêtes/jour.
+> À 3 minutes, un arrêt consomme ≈ 480 appels/jour (soit deux arrêts maximum).
+> Si vous avez besoin de plus, demandez une augmentation de quota sur le portail PRIM.
 
 ---
 
