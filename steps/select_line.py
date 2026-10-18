@@ -10,6 +10,7 @@ import uuid
 import voluptuous as vol
 
 from ..const import ICON_MAP, MODE_LABELS  # noqa: TID252
+from ..utils import as_record_list  # noqa: TID252
 
 
 class SelectLineStep:
@@ -50,19 +51,22 @@ class SelectLineStep:
                 if self.entry is None:
                     sensor_name = f"Messages {cm} {code}"
 
-                    messages = {
-                        "uuid": str(uuid.uuid4()),
-                        "name": sensor_name,
-                        "line_id": line_id,
-                        "line_type": cm,
-                        "code": code,
-                    }
+                    # ⚠️ Liste, et non dict : c’est ce que `sensor.py` itère.
+                    messages = [
+                        {
+                            "uuid": str(uuid.uuid4()),
+                            "name": sensor_name,
+                            "line_id": line_id,
+                            "line_type": cm,
+                            "code": code,
+                        }
+                    ]
 
                     return self.async_create_entry(
                         title="IDF Mobilité Assistant",
                         data={
                             "api_key": self.api_key,
-                            "messages": messages,  # ⭐ PAS de lignes ici
+                            "messages": messages,
                         },
                     )
 
@@ -70,7 +74,7 @@ class SelectLineStep:
                 entry_data = self.entry.data
 
                 # On récupère les messages existants ou une liste vide
-                messages = list(entry_data.get("messages", []))
+                messages = as_record_list(entry_data.get("messages", []))
 
                 sensor_name = f"Messages {cm} {code}"
 
